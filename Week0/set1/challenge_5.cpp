@@ -42,22 +42,17 @@ int main() {
     string plaintext = "";
     string key = "ICE";
     
-    // We must read the exact text including all spaces and newlines! 
-    // cin >> plaintext skips spaces, which ruins the encryption.
     char c;
     while (cin.get(c)) 
     {
         plaintext += c;
     }
-    
-    // If you typed Enter before ^Z, a trailing newline was added. 
-    // The challenge doesn't expect a newline at the very end, so we remove it.
+
     while (!plaintext.empty() && (plaintext.back() == '\n' || plaintext.back() == '\r')) {
         plaintext.pop_back();
     }
     
     vector<uint8_t> ciphertext = repeating_key_xor(plaintext, key);
-    // Convert the raw bytes to a readable hex string and print it
     string hex_str = bytes_to_hex(ciphertext);
     cout << hex_str << "\n";
     return 0;
